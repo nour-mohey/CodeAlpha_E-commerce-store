@@ -9,12 +9,12 @@ let usersList = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (!isLoggedIn()) {
-    window.location.href = "login.html?redirect=admin.html";
+    window.location.href = "/login.html?redirect=admin.html";
     return;
   }
   if (!isAdmin()) {
     alert("Access Denied: Administrators only.");
-    window.location.href = "index.html";
+    window.location.href = "/";
     return;
   }
 
@@ -27,19 +27,26 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadProductsData();
 });
 
-async function switchTab(tabName) {
-  document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
-  document.querySelectorAll(".tab-content").forEach(content => content.style.display = "none");
+async function switchTab(event, tabName) {
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  document.querySelectorAll(".tab-content").forEach(content => {
+    content.style.display = "none";
+  });
 
   event.currentTarget.classList.add("active");
   document.getElementById(`tab-${tabName}`).style.display = "block";
 
   const addBtn = document.getElementById("add-product-trigger");
+
   if (tabName === "products") {
     addBtn.style.display = "inline-flex";
     await loadProductsData();
   } else {
     addBtn.style.display = "none";
+
     if (tabName === "orders") {
       await loadOrdersData();
     } else if (tabName === "users") {

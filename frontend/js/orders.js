@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (!isLoggedIn()) {
     showToast("Please log in to view your orders.");
     setTimeout(() => {
-      window.location.href = "login.html?redirect=orders.html";
+      window.location.href = "/login.html?redirect=orders.html";
     }, 1000);
     return;
   }
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           </svg>
           <h3>No orders found</h3>
           <p>You haven't placed any orders yet.</p>
-          <a href="index.html#collection" class="btn btn-primary">Shop the Collection</a>
+          <a href="/#collection" class="btn btn-primary">Shop the Collection</a>
         </div>
       `;
       return;
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <div class="empty-state">
         <h3>Oops, something went wrong</h3>
         <p>Could not retrieve your orders. Please try again later.</p>
-        <a href="orders.html" class="btn btn-primary">Retry</a>
+        <a href="/orders.html" class="btn btn-primary">Retry</a>
       </div>
     `;
   }

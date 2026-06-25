@@ -141,14 +141,14 @@ function syncHeaderAuth() {
       if (!document.querySelector("#nav-orders-link")) {
         const liOrders = document.createElement("li");
         liOrders.id = "nav-orders-link";
-        liOrders.innerHTML = `<a href="orders.html">Orders</a>`;
+        liOrders.innerHTML = `<a href="/orders.html">Orders</a>`;
         navLinks.appendChild(liOrders);
       }
       
       if (isAdmin() && !document.querySelector("#nav-admin-link")) {
         const liAdmin = document.createElement("li");
         liAdmin.id = "nav-admin-link";
-        liAdmin.innerHTML = `<a href="admin.html">Admin</a>`;
+        liAdmin.innerHTML = `<a href="/admin.html">Admin</a>`;
         navLinks.appendChild(liAdmin);
       }
     }
@@ -156,7 +156,7 @@ function syncHeaderAuth() {
     navRight.innerHTML = `
       <span class="user-greeting" style="font-size:13px; color:var(--brass); letter-spacing:0.04em; text-transform:uppercase; margin-right:4px;">Hi, ${userName}</span>
       <a href="#" onclick="handleLogout(); return false;" class="cart-link" style="margin-right:12px;">Logout</a>
-      <a href="cart.html" class="cart-link">Bag <span class="cart-count">${cartCount()}</span></a>
+      <a href="/cart.html" class="cart-link">Bag <span class="cart-count">${cartCount()}</span></a>
     `;
   } else {
     // Remove Orders/Admin links if not logged in
@@ -164,8 +164,8 @@ function syncHeaderAuth() {
     document.querySelector("#nav-admin-link")?.remove();
     
     navRight.innerHTML = `
-      <a href="login.html" class="cart-link" style="margin-right:12px;">Login</a>
-      <a href="cart.html" class="cart-link">Bag <span class="cart-count">${cartCount()}</span></a>
+      <a href="/login.html" class="cart-link" style="margin-right:12px;">Login</a>
+      <a href="/cart.html" class="cart-link">Bag <span class="cart-count">${cartCount()}</span></a>
     `;
   }
   updateCartBadge();
@@ -337,16 +337,16 @@ function renderProductGrid(targetId, list = PRODUCTS) {
     const mainColor = colorsList[0];
     return `
       <article class="card">
-        <a href="product.html?id=${p.id}" class="card-media">
+        <a href="/product.html?id=${p.id}" class="card-media">
           ${bagSVG(mainColor, false)}
         </a>
         <div class="card-body">
           <span class="card-cat">${p.category}</span>
-          <a href="product.html?id=${p.id}"><h3 class="card-name">${p.name}</h3></a>
+          <a href="/product.html?id=${p.id}"><h3 class="card-name">${p.name}</h3></a>
           <p class="card-price">${formatPrice(p.price)}</p>
           <div class="card-actions">
             <button class="btn btn-primary" onclick="addToCart('${p.id}', 1, '${mainColor}')">Add to Bag</button>
-            <a class="btn btn-outline" href="product.html?id=${p.id}">View</a>
+            <a class="btn btn-outline" href="/product.html?id=${p.id}">View</a>
           </div>
         </div>
       </article>
@@ -551,7 +551,7 @@ async function handleCheckout() {
   if (!isLoggedIn()) {
     showToast("Please login to checkout");
     setTimeout(() => {
-      window.location.href = "login.html?redirect=cart.html";
+      window.location.href = "/login.html?redirect=cart.html";
     }, 1200);
     return;
   }
@@ -575,7 +575,7 @@ async function handleCheckout() {
       localStorage.setItem(CART_KEY, JSON.stringify([]));
       updateCartBadge();
       setTimeout(() => {
-        window.location.href = "orders.html";
+        window.location.href = "/orders.html";
       }, 1500);
     } else {
       showToast(data.error || "Checkout failed");
@@ -587,7 +587,7 @@ async function handleCheckout() {
 }
 
 /* ---------- AUTH SUBMISSION FLOWS ---------- */
-async function handleLogin(email, password, redirectUrl = 'index.html') {
+async function handleLogin(email, password, redirectUrl = '/') {
   try {
     const res = await fetch('/api/login', {
       method: 'POST',
@@ -607,9 +607,9 @@ async function handleLogin(email, password, redirectUrl = 'index.html') {
     
     setTimeout(() => {
       if (data.user.role === 'admin') {
-        window.location.href = 'admin.html';
+        window.location.href = '/admin.html';
       } else {
-        window.location.href = redirectUrl;
+        window.location.href = redirectUrl.startsWith('/') ? redirectUrl : `/${redirectUrl}`;
       }
     }, 1000);
     return true;
@@ -639,7 +639,7 @@ async function handleRegister(name, email, password) {
     await syncGuestCart();
     
     setTimeout(() => {
-      window.location.href = 'index.html';
+      window.location.href = '/';
     }, 1000);
     return true;
   } catch (err) {
@@ -654,7 +654,7 @@ function handleLogout() {
   localStorage.setItem(CART_KEY, JSON.stringify([]));
   showToast("Logged out");
   setTimeout(() => {
-    window.location.href = 'index.html';
+    window.location.href = '/';
   }, 1000);
 }
 

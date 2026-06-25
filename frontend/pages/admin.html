@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Satchel & Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="/" class="logo">Satchel <em>& Co.</em></a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/#collection">Collection</a></li>
+        <li><a href="/#craft">Craft</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="/login.html" class="cart-link">Login</a>
+        <a href="/cart.html" class="cart-link">Bag <span class="cart-count">0</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="admin-header">
+    <div class="wrap">
+      <div class="admin-title-row">
+        <div>
+          <span class="section-sub">Satchel & Co. Portal</span>
+          <h2>Store Administration</h2>
+        </div>
+        <button class="btn btn-primary" id="add-product-trigger">Add New Product</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="admin-tabs">
+      <button class="tab-btn active" onclick="switchTab(event,'products')">Products</button>
+      <button class="tab-btn" onclick="switchTab(event,'orders')">Orders</button>
+      <button class="tab-btn" onclick="switchTab(event,'users')">Users</button>
+    </div>
+
+    <div id="tab-products" class="tab-content">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-lbl">Total Products</div>
+          <div class="stat-val" id="stat-products-count">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-lbl">Low Stock Items (&lt; 10)</div>
+          <div class="stat-val" id="stat-low-stock">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-lbl">Total Stock Quantity</div>
+          <div class="stat-val" id="stat-total-stock">0</div>
+        </div>
+      </div>
+
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID / Slug</th>
+              <th>Product Info</th>
+              <th>Category</th>
+              <th>Colors</th>
+              <th>Price</th>
+              <th>Stock Level</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="products-table-body">
+            <tr>
+              <td colspan="7" style="text-align:center; padding:50px;">Loading products database...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-orders" class="tab-content" style="display:none;">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-lbl">Total Orders</div>
+          <div class="stat-val" id="stat-orders-count">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-lbl">Revenue Generated</div>
+          <div class="stat-val" id="stat-revenue">$0.00</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-lbl">Active Shipments</div>
+          <div class="stat-val" id="stat-active-orders">0</div>
+        </div>
+      </div>
+
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Date Placed</th>
+              <th>Items</th>
+              <th>Total Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="orders-table-body">
+            <tr>
+              <td colspan="6" style="text-align:center; padding:50px;">Loading order invoices...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-users" class="tab-content" style="display:none;">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-lbl">Registered Customers</div>
+          <div class="stat-val" id="stat-customers-count">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-lbl">Administrators</div>
+          <div class="stat-val" id="stat-admins-count">0</div>
+        </div>
+      </div>
+
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Name</th>
+              <th>Email Address</th>
+              <th>Date Registered</th>
+              <th>Current Role</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="users-table-body">
+            <tr>
+              <td colspan="6" style="text-align:center; padding:50px;">Loading user accounts...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="product-modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <h3 class="modal-title" id="modal-title-text">Add Product</h3>
+
+      <form id="product-form">
+        <input type="hidden" id="form-mode" value="add">
+
+        <div class="form-grid">
+          <div class="form-field" id="id-field-container">
+            <label for="prod-id">Product ID / Slug (Unique)</label>
+            <input type="text" id="prod-id" placeholder="e.g. tote-03" required>
+          </div>
+          <div class="form-field">
+            <label for="prod-name">Product Name</label>
+            <input type="text" id="prod-name" placeholder="e.g. The Harlow Tote" required>
+          </div>
+          <div class="form-field">
+            <label for="prod-category">Category</label>
+            <select id="prod-category" required>
+              <option value="Tote">Tote</option>
+              <option value="Crossbody">Crossbody</option>
+              <option value="Backpack">Backpack</option>
+              <option value="Clutch">Clutch</option>
+              <option value="Travel">Travel</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="prod-price">Price ($)</label>
+            <input type="number" step="0.01" id="prod-price" placeholder="128.00" required>
+          </div>
+          <div class="form-field form-full">
+            <label for="prod-desc">Description</label>
+            <textarea id="prod-desc" placeholder="Product copywriting details..." required></textarea>
+          </div>
+          <div class="form-field">
+            <label for="prod-colors">Colors (Comma-separated HEX)</label>
+            <input type="text" id="prod-colors" placeholder="#A8703D,#241910,#7C8A72" required>
+          </div>
+          <div class="form-field">
+            <label for="prod-stock">Initial Stock Level</label>
+            <input type="number" id="prod-stock" value="50" required>
+          </div>
+          <div class="form-field form-full">
+            <label for="prod-details">Craft Details (Pipe-separated bullet points)</label>
+            <input type="text" id="prod-details" placeholder="Full-grain leather|Fits 14 inch laptop|Brass buckles"
+              required>
+          </div>
+        </div>
+
+        <div style="margin-top: 24px; display: flex; gap: 12px; justify-content: flex-end;">
+          <button type="button" class="btn btn-outline" onclick="closeModal()"
+            style="padding: 10px 20px;">Cancel</button>
+          <button type="submit" class="btn btn-primary" style="padding: 10px 24px;">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/script.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+
+</html>
