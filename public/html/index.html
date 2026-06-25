@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satchel & Co. — Leather Bags, Made to Carry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a href="index.html" class="logo">Satchel <em>& Co.</em></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="index.html#collection">Collection</a></li>
+      <li><a href="index.html#craft">Craft</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="login.html" class="cart-link">Login</a>
+      <a href="cart.html" class="cart-link">Bag <span class="cart-count">0</span></a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="hero-eyebrow">Full-grain leather, cut by hand</span>
+      <h1>Bags built to<br><em>carry the day.</em></h1>
+      <p>Eight shapes, no shortcuts. Every Satchel & Co. piece is stitched in small batches and made to outlast the trend it ignored.</p>
+      <div class="hero-ctas">
+        <a href="#collection" class="btn btn-primary">Shop the Collection</a>
+        <a href="#craft" class="btn btn-ghost">Our Craft</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M55 70 L55 50 Q55 25 100 25 Q145 25 145 50 L145 70"
+              stroke="#B08D57" stroke-width="3" fill="none" stroke-linecap="round" class="stitch-draw"/>
+        <rect x="35" y="70" width="130" height="100" rx="6"
+              fill="#B08D57" opacity="0.14" stroke="#B08D57" stroke-width="2.5"/>
+        <line x1="35" y1="95" x2="165" y2="95" stroke="#B08D57" stroke-width="1.5" stroke-dasharray="6 5" opacity="0.7"/>
+        <circle cx="100" cy="120" r="4" fill="#B08D57"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="collection">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-sub">New Arrivals</span>
+        <h2>The Collection</h2>
+      </div>
+      <div class="stitch-row">8 styles</div>
+    </div>
+    <div class="grid" id="product-grid"></div>
+  </div>
+</section>
+
+<section class="craft" id="craft">
+  <div class="wrap">
+    <div class="craft-item">
+      <svg viewBox="0 0 24 24"><path d="M4 12 Q4 4 12 4 Q20 4 20 12 L20 20 L4 20 Z" stroke-dasharray="3 2"/></svg>
+      <h3>Full-Grain Leather</h3>
+      <p>Sourced from tanneries that age well, not just look good on day one.</p>
+    </div>
+    <div class="craft-item">
+      <svg viewBox="0 0 24 24"><path d="M3 12 L21 12 M3 12 L9 6 M3 12 L9 18" stroke-dasharray="3 2"/></svg>
+      <h3>Hand-Stitched</h3>
+      <p>Every seam is sewn, checked, and reinforced before it leaves the bench.</p>
+    </div>
+    <div class="craft-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" stroke-dasharray="3 2"/></svg>
+      <h3>Made to Last</h3>
+      <p>A two-year repair guarantee on stitching, hardware, and straps.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">Satchel <em>& Co.</em></a>
+      <p>Small-batch leather bags, designed in studio and stitched by hand.</p>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="index.html#collection">All Bags</a></li>
+        <li><a href="cart.html">Your Bag</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Account</h4>
+      <ul>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Create Account</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Satchel & Co.</span>
+    <span>Made by hand, sold online.</span>
+  </div>
+</footer>
+
+<script src="../js/script.js"></script>
+<script src="../js/index.js"></script>
+</body>
+</html>

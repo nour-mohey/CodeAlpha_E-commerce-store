@@ -1,0 +1,54 @@
+/* ============================================
+   SATCHEL & CO — orders.css
+   Orders page specific styling
+   ============================================ */
+
+.orders-list { display: flex; flex-direction: column; gap: 32px; padding-bottom: 70px; }
+.order-card {
+  background: var(--white);
+  border: 1px solid var(--bone-dim);
+  border-radius: var(--radius);
+}
+.order-header {
+  background: var(--bone-dim);
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  border-bottom: 1px dashed rgba(176,141,87,0.35);
+}
+.order-meta { display: flex; gap: 32px; font-size: 13px; color: #5b5046; }
+.order-meta strong { color: var(--espresso); display: block; margin-top: 3px; font-size: 15px; }
+.status-badge {
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 12px;
+  display: inline-block;
+}
+.status-pending { background: #fdf6e2; color: #b48500; border: 1px solid #f9ebbe; }
+.status-paid { background: #ebf5ff; color: #1e70e3; border: 1px solid #cce5ff; }
+.status-shipped { background: #effbf4; color: #2e7d32; border: 1px solid #d4f5e3; }
+.status-delivered { background: var(--espresso); color: var(--bone); border: 1px solid var(--espresso); }
+.status-cancelled { background: #fdf2f2; color: #de350b; border: 1px solid #fcdada; }
+
+.order-table { width: 100%; border-collapse: collapse; }
+.order-table td { padding: 18px 24px; border-bottom: 1px solid var(--bone-dim); vertical-align: middle; }
+.order-table tr:last-child td { border-bottom: none; }
+.order-item-thumb {
+  width: 54px; height: 54px;
+  background: var(--white);
+  border: 1px solid var(--bone-dim);
+  display: flex; align-items: center; justify-content: center;
+  padding: 6px;
+  flex-shrink: 0;
+}
+.order-item-info { display: flex; align-items: center; gap: 16px; }
+.order-item-name { font-family: var(--font-display); font-weight: 600; color: var(--espresso); font-size: 15px; }
+.order-item-cat { font-size: 12px; color: var(--brass); text-transform: uppercase; }
+
+.loader { text-align: center; padding: 100px 20px; color: var(--brass); font-family: var(--font-display); font-style: italic; font-size: 20px; }
