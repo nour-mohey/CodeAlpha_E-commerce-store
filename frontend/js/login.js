@@ -9,8 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const email = document.getElementById("email").value;
+    const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
+
+    if (!isValidEmail(email)) {
+      showToast("Please enter a valid email address");
+      return;
+    }
+
     const redirectParam = getParam("redirect") || "/";
     const redirect = redirectParam.startsWith("/") ? redirectParam : `/${redirectParam}`;
 

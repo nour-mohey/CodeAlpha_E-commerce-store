@@ -40,7 +40,8 @@
     </div>
     <div class="field">
       <label for="reg-password">Password</label>
-      <input type="password" id="reg-password" required placeholder="••••••••">
+      <input type="password" id="reg-password" required minlength="8" placeholder="••••••••" autocomplete="new-password">
+      <span class="field-hint">At least 8 characters with uppercase, lowercase, and a symbol.</span>
     </div>
     <button type="submit" class="btn btn-primary btn-block">Create Account</button>
   </form>

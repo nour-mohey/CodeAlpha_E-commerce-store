@@ -94,11 +94,15 @@ async function initializeDatabase() {
     `);
 
       initialized = true;
-      return;
-    }) ();
+    } catch (err) {
+      initializationPromise = null;
+      console.error('Database initialization failed:', err.message);
+      throw err;
+    }
+  })();
 
-    return initializationPromise;
-  }
+  return initializationPromise;
+}
 
 pool.getConnection()
   .then(async (conn) => {

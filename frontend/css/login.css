@@ -13,5 +13,6 @@
   border: 1px solid var(--bone-dim); background: var(--white); border-radius: var(--radius);
 }
 .field input:focus { outline: 2px solid var(--cognac); outline-offset: 1px; }
+.field-hint { display: block; margin-top: 6px; font-size: 12px; color: #6b5f53; line-height: 1.4; }
 .auth-foot { text-align: center; font-size: 13px; margin-top: 22px; color: #6b5f53; }
 .auth-foot a { color: var(--cognac); text-decoration: underline; }

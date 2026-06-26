@@ -586,6 +586,18 @@ async function handleCheckout() {
   }
 }
 
+/* ---------- AUTH VALIDATION ---------- */
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}$/;
+
+function isValidEmail(email) {
+  return EMAIL_REGEX.test(email.trim());
+}
+
+function isValidPassword(password) {
+  return PASSWORD_REGEX.test(password);
+}
+
 /* ---------- AUTH SUBMISSION FLOWS ---------- */
 async function handleLogin(email, password, redirectUrl = '/') {
   try {
