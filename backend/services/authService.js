@@ -8,6 +8,13 @@ function signToken(userId) {
 }
 
 async function register({ name, email, password }) {
+  const existing = await User.findByEmail(email);
+  if (existing) {
+    const err = new Error('Email already registered');
+    err.code = 'ER_DUP_ENTRY';
+    throw err;
+  }
+
   const hashed = await bcrypt.hash(password, 10);
   const userId = await User.create({ name, email, password: hashed });
   const token = signToken(userId);

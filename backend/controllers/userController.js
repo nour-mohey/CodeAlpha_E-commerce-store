@@ -1,7 +1,9 @@
 const authService = require('../services/authService');
 
 async function register(req, res) {
-  const { name, email, password } = req.body;
+  const name = req.body.name?.trim();
+  const email = req.body.email?.trim().toLowerCase();
+  const password = req.body.password;
 
   if (!name || !email || !password) {
     return res.status(400).json({ error: 'Name, email, and password are required' });
@@ -14,7 +16,10 @@ async function register(req, res) {
     if (err.code === 'ER_DUP_ENTRY') {
       return res.status(409).json({ error: 'Email already registered' });
     }
-    res.status(500).json({ error: err.message });
+    if (err.code === 'ECONNREFUSED' || err.code === 'ENOTFOUND') {
+      return res.status(503).json({ error: 'Database unavailable. Make sure MySQL is running.' });
+    }
+    res.status(500).json({ error: err.message || 'Registration failed' });
   }
 }
 
@@ -32,7 +37,10 @@ async function login(req, res) {
     }
     res.json({ message: 'Login successful', ...result });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    if (err.code === 'ECONNREFUSED' || err.code === 'ENOTFOUND') {
+      return res.status(503).json({ error: 'Database unavailable. Make sure MySQL is running.' });
+    }
+    res.status(500).json({ error: err.message || 'Login failed' });
   }
 }
 
