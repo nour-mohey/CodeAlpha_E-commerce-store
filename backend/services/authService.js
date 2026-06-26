@@ -8,7 +8,16 @@ function signToken(userId) {
 }
 
 async function register({ name, email, password }) {
-  const existing = await User.findByEmail(email);
+  const normalizedName = name?.trim();
+  const normalizedEmail = email?.trim().toLowerCase();
+
+  if (!normalizedName || !normalizedEmail || !password) {
+    const err = new Error('Name, email, and password are required');
+    err.code = 'INVALID_INPUT';
+    throw err;
+  }
+
+  const existing = await User.findByEmail(normalizedEmail);
   if (existing) {
     const err = new Error('Email already registered');
     err.code = 'ER_DUP_ENTRY';
@@ -16,16 +25,19 @@ async function register({ name, email, password }) {
   }
 
   const hashed = await bcrypt.hash(password, 10);
-  const userId = await User.create({ name, email, password: hashed });
+  const userId = await User.create({ name: normalizedName, email: normalizedEmail, password: hashed });
   const token = signToken(userId);
   return {
     token,
-    user: { id: userId, name, email, role: 'customer' }
+    user: { id: userId, name: normalizedName, email: normalizedEmail, role: 'customer' }
   };
 }
 
 async function login({ email, password }) {
-  const user = await User.findByEmail(email);
+  const normalizedEmail = email?.trim().toLowerCase();
+  if (!normalizedEmail || !password) return null;
+
+  const user = await User.findByEmail(normalizedEmail);
   if (!user) return null;
 
   const match = await bcrypt.compare(password, user.password);

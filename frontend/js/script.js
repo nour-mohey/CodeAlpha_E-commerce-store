@@ -325,7 +325,7 @@ function getParam(name) {
 }
 
 function formatPrice(n) {
-  return "$" + Number(n).toFixed(2);
+  return Number(n).toFixed(2) + " EGP";
 }
 
 /* ---------- RENDER: PRODUCT GRID (index.html) ---------- */

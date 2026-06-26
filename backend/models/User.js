@@ -2,7 +2,7 @@ const pool = require('../config/database');
 
 class User {
   static async findByEmail(email) {
-    const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+    const [rows] = await pool.query('SELECT * FROM users WHERE LOWER(email) = LOWER(?)', [email]);
     return rows[0] || null;
   }
 
